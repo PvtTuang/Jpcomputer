@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY requirements.txt .
 
+RUN pip install django-environ
 RUN pip install -r requirements.txt
 
 COPY . .
