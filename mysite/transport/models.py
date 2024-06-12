@@ -13,6 +13,7 @@ class TransportOrder(models.Model):
         ('J&T EXPRESS','J&T EXPRESS'),
         ('FLASH EXPRESS','FLASH EXPRESS'),
         ('DHL EXPRESS','DHL EXPRESS'),
+        ('ยกเลิกคำสั่งซื้อ','ยกเลิกคำสั่งซื้อ'),
     ]
     STATUS = [
         ('กำลังจัดส่ง','กำลังจัดส่ง'),

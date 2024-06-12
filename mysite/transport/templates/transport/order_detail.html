@@ -128,9 +128,10 @@
             เวลาที่ส่ง:{{ form.delivery_date }} <br>
             <button type="submit" class="btn-submit">จัดส่งสินค้า</button>
         </form>
+        <p style="color: red;">*หากยกเลิกคำสั่งซื้อ กรุณากรอกรายละเอียดในช่องรหัสการจัดส่ง และเลือกวันที่ที่ยกเลิกคำสั่งซื้อ</p>
         {% endif %}
         {% endif %}
-        {% if not order.status == 'ตรวจสอบคำสั่งซื้อ' %}
+        {% if order.status == 'ยกเลิกคำสั่งซื้อ' %}
         {% if user.profile.role.name == 'Owner' %}
             <a href="{% url 'cancel_order' order.id %}" class="return-button">ยกเลิกสินค้า</a>
         {% endif %}

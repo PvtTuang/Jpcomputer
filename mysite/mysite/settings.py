@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-ch5$pjk##s7=+7#+*fxmhv8oc1o06w(od=#8f9=i&!2!andh2t
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['43.228.86.67']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -88,12 +88,8 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env('POSTGRES_DB'),
-        'USER': env('POSTGRES_USER'),
-        'PASSWORD': env('POSTGRES_PASSWORD'),
-        'HOST': 'db',
-        'PORT': 5432,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -149,8 +145,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SOCIALACCOUNT_PROVIDERS = {
           'line': {
               'APP': {
-                  'client_id': 'CLIENT_ID',
-                  'secret': 'SECRET'
+                  'client_id': env('CLIENT_ID'),
+                  'secret': env('SECRET')
               },
               "SCOPE": ['profile', 'openid', 'email']
           }

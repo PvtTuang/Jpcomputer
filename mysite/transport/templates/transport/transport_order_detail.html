@@ -47,9 +47,9 @@
     function copyParcelNumber() {
         var parcelNumber = document.getElementById("parcelNumber").innerText;
         navigator.clipboard.writeText(parcelNumber).then(function() {
-            alert("Parcel number copied to clipboard");
+            alert("คัดลอกหมายเลขพัสดุไปยังคลิปบอร์ดแล้ว");
         }, function() {
-            alert("Failed to copy parcel number");
+            alert("ไม่สามารถคัดลอกหมายเลขพัสดุได้");
         });
     }
 </script>

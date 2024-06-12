@@ -8,7 +8,10 @@ from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from accounts.decorators import block_role_required
 import requests
+import environ
 
+env = environ.Env()
+environ.Env.read_env()
 # Create your views here.
 
 @login_required
@@ -137,8 +140,8 @@ def upload_slip(request, order_id):
                 product = cart_item.product
                 message = f'ผู้ใช้ {user.first_name} {user.last_name} เลขที่คำสั่งซื้อ {order.id} สนใจสินค้า {product.name} ราคา {product.price} บาท'
                 
-                line_notify_token = 'NOTIFY_TOKEN'
-                line_notify_api = 'NOTIFY_API'
+                line_notify_token = env('NOTIFY_TOKEN')
+                line_notify_api = env('NOTIFY_API')
                 headers = {'Authorization': f'Bearer {line_notify_token}'}
                 payload = {'message': message}
                 response = requests.post(line_notify_api, headers=headers, data=payload)

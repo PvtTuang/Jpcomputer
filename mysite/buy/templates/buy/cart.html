@@ -105,11 +105,13 @@
 </div>
 
 <div class="cart-payment">
-    {% if cart %}
+    {% if cart.cartitem_set.all %}
     <form action="{% url 'create_order' cart.id %}" method="post">
         {% csrf_token %}
         <button type="submit" class="payment-btn">จ่ายเงิน</button>
     </form>
+    {% else %}
+    <p>ไม่มีสินค้าในตะกร้า</p>
     {% endif %}
 </div>
 
