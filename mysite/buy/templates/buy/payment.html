@@ -73,8 +73,9 @@
                 {% endif %} </li>
         {% endfor %}
     </ul>
-
+    <p>จำนวนสินค้าทั้งหมด: {{ total_quantity }} ชิ้น</p>
     <p>ราคารวม: {{ total_amount|floatformat:0 }}</p>
+    
 </div>
 
     <div class="qr-code-container">

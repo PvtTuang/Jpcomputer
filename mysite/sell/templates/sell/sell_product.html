@@ -128,7 +128,7 @@
             <form method="POST" action="{% url 'sell_product' product.id %}" class="sell-form">
                 {% csrf_token %}
                 <input type="number" name="quantity_sold" placeholder="Quantity to sell" class="quantity-input">
-                <button type="submit" class="sell-button">Sell</button>
+                <button type="submit" class="sell-button">ขาย</button>
             </form>
         </div>
         {% endfor %}

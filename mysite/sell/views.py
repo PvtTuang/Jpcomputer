@@ -22,9 +22,12 @@ def sales_history(request):
     all_sales = SalesHistory.objects.all()
 
     # Daily Sales
-    daily_sales = SalesHistory.objects.filter(sold_at__date=timezone.now().date())
+    today_start = timezone.now().replace(hour=0, minute=0, second=0, microsecond=0)  # เริ่มต้นวัน (เที่ยงคืน)
+    today_end = today_start + timedelta(days=1)  
+    daily_sales = SalesHistory.objects.filter(sold_at__gte=today_start, sold_at__lt=today_end)
     daily_total_price = daily_sales.aggregate(total_price=Sum('product__price'))['total_price'] or 0
 
+   
     # Monthly Sales
     this_month = timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)
     next_month = (this_month + timedelta(days=32)).replace(day=1)

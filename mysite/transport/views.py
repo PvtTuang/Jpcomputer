@@ -1,4 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
+
+from sell.models import SalesHistory
 from .models import TransportOrder
 from .forms import TransportOrderForm
 from buy.models import Order
@@ -25,7 +27,6 @@ def list_all_orders(request):
 
 @login_required
 @transaction.atomic
-@block_role_required
 def order_detail(request, order_id):
     order = get_object_or_404(Order, pk=order_id)
     shipping_addresses = order.shipping_addresses.all()
@@ -42,11 +43,29 @@ def order_detail(request, order_id):
             order.status = 'กำลังจัดส่ง'
             order.save()
 
+            # บันทึกการขาย
+            for item in order.cart.cartitem_set.all():
+                if item.product.quantity >= item.quantity:
+                    item.product.quantity -= item.quantity
+                    item.product.save()
+
+                    sales_history = SalesHistory(
+                        product=item.product,
+                        quantity_sold=item.quantity
+                    )
+                    sales_history.save()
+
             return redirect('order_detail', order_id=order.id)
+
     else:
         form = TransportOrderForm()
 
-    return render(request, 'transport/order_detail.html', {'order': order, 'total_amount': total_amount, 'form': form, 'shipping_addresses': shipping_addresses})
+    return render(request, 'transport/order_detail.html', {
+        'order': order, 
+        'total_amount': total_amount, 
+        'form': form, 
+        'shipping_addresses': shipping_addresses
+    })
 
 @login_required
 @block_role_required

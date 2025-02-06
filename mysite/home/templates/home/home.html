@@ -36,6 +36,12 @@
     </div>
 </div>
 
+<div class="search-results">
+    {% if message %}
+        <p class="alert alert-warning">{{ message }}</p>
+    {% endif %}
+</div>
+
 <div class="logo">
     <img src="{% static 'images/jpcomputer.jpg' %}" alt="JpComputer Logo">
 </div>

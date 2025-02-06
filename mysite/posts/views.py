@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render,redirect,get_object_or_404
 from posts.forms import *
 from posts.models import *
@@ -25,7 +26,10 @@ def add_product(request):
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('product_list')  
+            messages.success(request, 'เพิ่มสินค้าใหม่เรียบร้อยแล้ว')
+            return redirect('product_list')
+        else:
+            messages.error(request, 'ข้อมูลไม่ถูกต้อง กรุณาลองอีกครั้ง')
     else:
         form = ProductForm()
     return render(request, 'posts/add_product.html', {'form': form})
@@ -41,12 +45,21 @@ def add_item(request, pk, form_class, model_class):
                 item = form.save(commit=False)
                 item.product = product
                 item.save()
-                product.has_detail = True  
+                product.has_detail = True
                 product.save()
+                messages.success(request, f'เพิ่ม {model_class.__name__} เรียบร้อยแล้ว')
+            else:
+                messages.warning(request, f'{model_class.__name__} สำหรับสินค้านี้มีอยู่แล้ว')
             return redirect('product_list')
+        else:
+            messages.error(request, 'ข้อมูลไม่ถูกต้อง กรุณาลองอีกครั้ง')
     else:
         form = form_class()
-    return render(request, f'posts/add/add_{model_class.__name__.lower()}.html', {'form': form, 'product': product})
+    return render(
+        request,
+        f'posts/add/add_{model_class.__name__.lower()}.html',
+        {'form': form, 'product': product}
+    )
 
 @login_required
 @user_passes_test(user_is_owner, login_url='/')
@@ -116,6 +129,7 @@ search_mapping = {
 def search_results(request):
     query = request.GET.get('q')
     products = None
+    message = None  
 
     if query in search_mapping:
         query = search_mapping[query]
@@ -132,14 +146,17 @@ def search_results(request):
             Q(headphonespeaker__brand__icontains=query) |     
             Q(printer__brand__icontains=query) |     
             Q(sdcards_usb__brand__icontains=query) |     
-            Q(connectivitydevice__brand__icontains=query)    
+            Q(connectivitydevice__brand__icontains=query)
         ).distinct() 
     else:
         products = Product.objects.all()
+
+    if products.exists():
+        message = None  
+    else:
+        message = "ไม่พบสินค้าที่คุณกำลังมองหา" 
     
-    return render(request, 'home/home.html', {'products': products})
-
-
+    return render(request, 'home/home.html', {'products': products, 'message': message})
 
 
 

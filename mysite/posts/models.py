@@ -317,6 +317,7 @@ class MouseKeyboard(models.Model):
         ('Cooler Master', 'Cooler Master'),
         ('HyperX', 'HyperX'),
         ('Zowie', 'Zowie'),
+        ('Anitech', 'Anitech'),
     ]
 
     DPI_CHOICES = [
@@ -388,7 +389,7 @@ class HeadphoneSpeakers(models.Model):
     SIZE_CHOICES = [
         ('Small', 'Small'),
         ('Medium', 'Medium'),
-        ('Medium', 'Medium'),
+        ('Large', 'Large'),
     ]
 
 

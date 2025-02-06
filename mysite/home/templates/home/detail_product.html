@@ -126,18 +126,27 @@
             <strong>
                 <p>ระยะเวลารับประกัน: {{ product.warranty }}</p>
             </strong>
+            <p>คงเหลือ {{ product.quantity }} ชิ้น</p>
             <p class="price">{{ product.price|floatformat:0 }} บาท</p>
             
             <form action="{% url 'add_to_cart' product.id %}" method="post" class="add-to-cart-form">
                 {% csrf_token %}
-                <label for="quantity">Quantity:</label>
-                <input type="number" id="quantity" name="quantity" min="1" value="1">
-                <button type="submit">Add to Cart</button>
+                <label for="quantity">จำนวน:</label>
+                <input 
+                    type="number" 
+                    id="quantity" 
+                    name="quantity" 
+                    min="1" 
+                    max="{{ product.quantity }}" 
+                    value="1" 
+                    oninput="validateQuantity(this)"
+                >
+                <button type="submit">เพิ่มลงตะกร้า</button>
             </form>
 
             <form method="POST" action="{% url 'like_product' product.id %}" class="like-product-form">
                 {% csrf_token %}
-                <button type="submit"><i class="far fa-heart"></i> Like</button>
+                <button type="submit"><i class="far fa-heart"></i> ถูกใจ</button>
             </form>
         </div>
         <p>สอบถามเพื่อเติม:</p>
@@ -152,6 +161,13 @@
 <script>
     function changeImage(newImageUrl) {
         document.getElementById("main-img").src = newImageUrl;
+    }
+    function validateQuantity(input) {
+        const max = parseInt(input.max, 10);
+        if (input.value > max) {
+            input.value = max;
+            alert('จำนวนที่เลือกเกินจำนวนสินค้าที่เหลือในสต็อก');
+        }
     }
 </script>
 {% endblock %}

@@ -84,13 +84,20 @@
                         {% endfor %}
                     {% endif %} 
                    </td>
-                    <td>
-                        <form method="post" action="{% url 'update_cart' cart_item.id %}">
-                            {% csrf_token %}
-                            <input type="number" name="quantity" value="{{ cart_item.quantity }}">
-                            <button type="submit" class="update-btn">อัพเดต</button>
-                        </form>
-                    </td>
+                   <td>
+                    <form method="post" action="{% url 'update_cart' cart_item.id %}">
+                        {% csrf_token %}
+                        <input 
+                            type="number" 
+                            name="quantity" 
+                            value="{{ cart_item.quantity }}" 
+                            min="1" 
+                            max="{{ cart_item.product.quantity }}" 
+                            oninput="validateCartQuantity(this, {{ cart_item.product.quantity }})"
+                        >
+                        <button type="submit" class="update-btn">อัพเดต</button>
+                    </form>
+                </td>
                     <td> {{ cart_item.product.price|floatformat:0 }} บาท</td>
                     <td>
                         <a href="{% url 'remove_from_cart' cart_item.id %}" class="remove-btn">ลบ</a>
@@ -99,8 +106,8 @@
                 {% endfor %}
             </tbody>
         </table>
-          
-<p>ราคาทั้งหมด: {{ total_price|floatformat:0 }} บาท</p>
+        <p>จำนวนสินค้าทั้งหมด: {{ total_quantity }} ชิ้น</p>         
+        <p>ราคาทั้งหมด: {{ total_price|floatformat:0 }} บาท</p>
     </div>
 </div>
 
@@ -119,5 +126,12 @@
 <div class="back-to-shop">
     <a href="{% url 'home' %}" class="back-to-shop-btn">เลือกซื้อสินค้า</a>
 </div>
-
+<script>
+    function validateCartQuantity(input, stock) {
+        if (input.value > stock) {
+            alert(`จำนวนที่เลือกเกินจำนวนในสต็อก (${stock} ชิ้น)`);
+            input.value = stock;
+        }
+    }
+</script>
 {% endblock %}

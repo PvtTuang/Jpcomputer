@@ -27,47 +27,47 @@
                     <td>{{ product.price }}</td>
                     <td>
                         <div class="action-buttons">
-                            <a href="{% url 'product_update' product.pk %}" class="update-btn">Update</a>
+                            <a href="{% url 'product_update' product.pk %}" class="update-btn">อัพเดต</a>
                             {% if not product.has_detail %}
                                 {% if product.product_type.name == 'Computer' %}
-                                    <a href="{% url 'add_computer' pk=product.pk %}" class="add-detail-btn">Add Computer Detail</a>
+                                    <a href="{% url 'add_computer' pk=product.pk %}" class="add-detail-btn">เพิ่มรายละเอียดคอมพิวเตอร์</a>
                                 {% elif product.product_type.name == 'Notebook' %}
-                                    <a href="{% url 'add_notebook' pk=product.pk %}" class="add-detail-btn">Add Notebook Detail</a>
+                                    <a href="{% url 'add_notebook' pk=product.pk %}" class="add-detail-btn">เพิ่มรายละเอียดโน้ตบุ๊ก</a>
                                 {% elif product.product_type.name == 'Monitor' %}
-                                    <a href="{% url 'add_monitor' pk=product.pk %}" class="add-detail-btn">Add Monitor Detail</a>
+                                    <a href="{% url 'add_monitor' pk=product.pk %}" class="add-detail-btn">เพิ่มรายละเอียดจอภาพ</a>
                                 {% elif product.product_type.name == 'MouseKeyboard' %}
-                                    <a href="{% url 'add_mouse_keyboard' pk=product.pk %}" class="add-detail-btn">Add Mouse/Keyboard Detail</a>
+                                    <a href="{% url 'add_mouse_keyboard' pk=product.pk %}" class="add-detail-btn">เพิ่มรายละเอียดเมาส์/คีย์บอร์ด</a>
                                 {% elif product.product_type.name == 'HeadphoneSpeakers' %}
-                                    <a href="{% url 'add_headphone_speakers' pk=product.pk %}" class="add-detail-btn">Add Headphone/Speakers Detail</a>
+                                    <a href="{% url 'add_headphone_speakers' pk=product.pk %}" class="add-detail-btn">เพิ่มรายละเอียดหูฟัง/ลำโพง</a>
                                 {% elif product.product_type.name == 'Printers' %}
-                                    <a href="{% url 'add_printers' pk=product.pk %}" class="add-detail-btn">Add Printers Detail</a>
+                                    <a href="{% url 'add_printers' pk=product.pk %}" class="add-detail-btn">เพิ่มรายละเอียดเครื่องพิมพ์</a>
                                 {% elif product.product_type.name == 'SDCards_USBs' %}
-                                    <a href="{% url 'add_sd_cards_usbs' pk=product.pk %}" class="add-detail-btn">Add SD Cards/USBs Detail</a>
+                                    <a href="{% url 'add_sd_cards_usbs' pk=product.pk %}" class="add-detail-btn">เพิ่มรายละเอียดการ์ด SD/แฟลชไดรฟ์</a>
                                 {% elif product.product_type.name == 'ConnectivityDevices' %}
-                                    <a href="{% url 'add_connectivity_devices' pk=product.pk %}" class="add-detail-btn">Add Connectivity Devices Detail</a>
+                                    <a href="{% url 'add_connectivity_devices' pk=product.pk %}" class="add-detail-btn">เพิ่มรายละเอียดอุปกรณ์เชื่อมต่อ</a>
                                 {% endif %}
                             {% else %}
                                 {% if product.product_type.name == 'Computer' %}
-                                    <a href="{% url 'update_computer' pk=product.pk %}" class="update-detail-btn">Update Detail</a>
+                                    <a href="{% url 'update_computer' pk=product.pk %}" class="update-detail-btn">อัพเดตรายละเอียด</a>
                                 {% elif product.product_type.name == 'Notebook' %}
-                                    <a href="{% url 'update_notebook' pk=product.pk %}" class="update-detail-btn">Update Detail</a>
+                                    <a href="{% url 'update_notebook' pk=product.pk %}" class="update-detail-btn">อัพเดตรายละเอียด</a>
                                 {% elif product.product_type.name == 'Monitor' %}
-                                    <a href="{% url 'update_monitor' pk=product.pk %}" class="update-detail-btn">Update Detail</a>
+                                    <a href="{% url 'update_monitor' pk=product.pk %}" class="update-detail-btn">อัพเดตรายละเอียด</a>
                                 {% elif product.product_type.name == 'MouseKeyboard' %}
-                                    <a href="{% url 'update_mouse_keyboard' pk=product.pk %}" class="update-detail-btn">Update Detail</a>
+                                    <a href="{% url 'update_mouse_keyboard' pk=product.pk %}" class="update-detail-btn">อัพเดตรายละเอียด</a>
                                 {% elif product.product_type.name == 'HeadphoneSpeakers' %}
-                                    <a href="{% url 'update_headphone_speakers' pk=product.pk %}" class="update-detail-btn">Update Detail</a>
+                                    <a href="{% url 'update_headphone_speakers' pk=product.pk %}" class="update-detail-btn">อัพเดตรายละเอียด</a>
                                 {% elif product.product_type.name == 'Printers' %}
-                                    <a href="{% url 'update_printers' pk=product.pk %}" class="update-detail-btn">Update Detail</a>
+                                    <a href="{% url 'update_printers' pk=product.pk %}" class="update-detail-btn">อัพเดตรายละเอียด</a>
                                 {% elif product.product_type.name == 'SDCards_USBs' %}
-                                    <a href="{% url 'update_sd_cards_usbs' pk=product.pk %}" class="update-detail-btn">Update Detail</a>
+                                    <a href="{% url 'update_sd_cards_usbs' pk=product.pk %}" class="update-detail-btn">อัพเดตรายละเอียด</a>
                                 {% elif product.product_type.name == 'ConnectivityDevices' %}
-                                    <a href="{% url 'update_connectivity_devices' pk=product.pk %}" class="update-detail-btn">Update Detail</a>
+                                    <a href="{% url 'update_connectivity_devices' pk=product.pk %}" class="update-detail-btn">อัพเดตรายละเอียด</a>
                                 {% endif %}
                             {% endif %}
                             <form action="{% url 'delete_product' pk=product.pk %}" method="post">
                                 {% csrf_token %}
-                                <button type="submit" class="delete-btn">Delete</button>
+                                <button type="submit" class="delete-btn">ลบสินค้า</button>
                             </form>
                         </div>
                     </td>

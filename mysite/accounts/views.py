@@ -26,6 +26,7 @@ def show_user(request):
 def profile(request):
     return redirect('home')
 
+@login_required
 def logout_view(request):
     logout(request)
     return redirect('/')

@@ -42,7 +42,8 @@ def view_cart(request):
         cart = carts.first()
         cart_items = cart.cartitem_set.all()
         total_price = sum(item.product.price * item.quantity for item in cart_items)
-        return render(request, 'buy/cart.html', {'cart_items': cart_items, 'total_price': total_price, 'cart': cart})
+        total_quantity = sum(item.quantity for item in cart.cartitem_set.all())
+        return render(request, 'buy/cart.html', {'cart_items': cart_items, 'total_price': total_price,'total_quantity': total_quantity, 'cart': cart})
     else:
         return render(request, 'buy/cart.html', {'cart_items': [], 'total_price': 0})
 
@@ -68,6 +69,7 @@ def remove_from_cart(request, cart_item_id):
 def make_payment(request, order_id):
     order = Order.objects.get(pk=order_id)
     total_amount = sum(item.product.price * item.quantity for item in order.cart.cartitem_set.all())
+    total_quantity = sum(item.quantity for item in order.cart.cartitem_set.all())
 
     id_or_phone_number = "0626214110"
     payload_with_amount = qrcode.generate_payload(id_or_phone_number, total_amount)
@@ -83,6 +85,7 @@ def make_payment(request, order_id):
     return render(request, 'buy/payment.html', {'payload': payload_with_amount, 
                                                 'qr_code_image': img_str, 'order': order, 
                                                 'total_amount': total_amount,
+                                                'total_quantity': total_quantity,
                                                 'shipping_addresses': shipping_addresses, })
 
 @login_required
